@@ -74,7 +74,6 @@ const routes = createRouter({
 });
 
 routes.beforeEach((to)=>{
-    alert(to.path)
     if(to.path === '/') return '/home';
 })
 
