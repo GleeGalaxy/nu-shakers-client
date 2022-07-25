@@ -13,6 +13,7 @@ h1, h2{
 }
 
     .footer-wrapper{
+        min-height: 104px;
         width: 100%;
         padding:18px 0;
         background-color: #8d191c;
