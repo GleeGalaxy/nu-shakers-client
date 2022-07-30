@@ -106,6 +106,7 @@
         padding:var(--mp-400) 0;
         background-color: var(--accents);
         box-shadow: 0 6px 6px #11111160;
+        z-index:20;
     }
 
     .header .nav-links-active{

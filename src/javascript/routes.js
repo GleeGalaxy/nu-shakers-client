@@ -29,6 +29,10 @@ const routes = createRouter({
 });
 
 routes.beforeEach((to)=>{
+
+    let elem = document.getElementById('nav-links');
+    elem.className = 'nav-links'
+
     if(to.path === '/') return '/home';
     if(to.path === '/game-master') return '/manage-games';
 })
