@@ -6,7 +6,14 @@ const playersModule = {
         }
     },
     getters:{
-        getPlayers(state){
+        getPlayersByName(state){
+            //Sorts players by name and returns the array.
+            const sortedPlayersPoints = state.players.sort((a, b)=>b.points - a.points || b.gamesPlayed - a.gamesPlayed)
+
+            return sortedPlayersPoints;
+        },
+
+        getPlayersByPoints(state){
             const sortedPlayersPoints = state.players.sort((a, b)=>b.points - a.points || b.gamesPlayed - a.gamesPlayed)
 
             return sortedPlayersPoints;
@@ -36,6 +43,12 @@ const playersModule = {
                     })
                 }
             );
+        }
+    },
+
+    actions:{
+        getPlayers(context){
+            context.commit('setPlayers');
         }
     }
 }

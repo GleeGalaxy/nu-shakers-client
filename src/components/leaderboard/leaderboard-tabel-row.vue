@@ -4,9 +4,9 @@
             <img v-if="!checkRow(data.firstName)" src="../../assets/default_profile_pic.jpg" alt="">
             <li>{{position}}</li>
             <li style="flex: 2;">{{data.firstName + " " + data.lastName}}</li>
-            <li>{{data.nickname}}</li>
-            <li>{{data.gamesPlayed}}</li>
-            <li style="border:none;">{{data.points}}</li>
+            <li class="toggle-column1">{{data.nickname}}</li>
+            <li class="toggle-column2">{{data.gamesPlayed}}</li>
+            <li>{{data.points}}</li>
         </ul>
     </div>
 </template>
@@ -38,16 +38,6 @@
         border-radius: 148px;
     }
 
-    li{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex: 1;
-        height: 100%;
-        text-align: center;  
-        border-right: 2px solid #fff;      
-    }
-
     .leaderboard-table-header{
         border-radius: 10px;
         background-color: #e98824;
@@ -67,13 +57,38 @@
     }
     
     .leaderboard-table-row ul, .leaderboard-table-header ul{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 18px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        place-items: center;
+        font-size: var(--fs-340);
         font-weight: 600;
         height: 100%;
         width: 95%;
         margin: 0 auto;
+        justify-content: space-around;
+    }
+
+    .toggle-column1, .toggle-column2, img{
+        display: none;
+    }
+
+    @media (min-width:568px){
+        .leaderboard-table-row ul, .leaderboard-table-header ul{
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .toggle-column1{
+            display: contents;
+        }
+    }
+    
+    @media (min-width:960px){
+        .leaderboard-table-row ul, .leaderboard-table-header ul{
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+        
+        .toggle-column2{
+            display: block;
+        }
     }
 </style>

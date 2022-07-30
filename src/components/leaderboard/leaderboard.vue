@@ -1,16 +1,16 @@
 <template>
-    <div class="leaderboard-wrapper">
+    <div class="leaderboard-wrapper wrapper">
         <div class="container">
             <div class="leaderboard">
                 <h1>LEADERBOARDS</h1>
                 <div class="leaderboard-players">
                     <comp-table-row
-                        position='Position'
+                        position='Place'
                         :data="tableHeader" 
                         type="leaderboard-table-header">
                     </comp-table-row>
                     <comp-table-row 
-                        v-for="(player, index) in $store.getters['players/getPlayers']" 
+                        v-for="(player, index) in $store.getters['players/getPlayersByPoints']" 
                         :key="index" 
                         :position="`${index + 1}`"
                         :data="player"
@@ -36,12 +36,11 @@
             return{
                 tableHeader:
                 {
-                    position:"POSITION",
-                    firstName:"PLAYER", 
+                    firstName:"Player", 
                     lastName:"", 
-                    nickname:"NICKNAME", 
-                    gamesPlayed:"GAMES PLAYED", 
-                    points:"POINTS"
+                    nickname:"Nickname", 
+                    gamesPlayed:"Games Played", 
+                    points:"Points"
                 },
             }
         },
@@ -78,9 +77,5 @@
 
     .leaderboard-table th{
         text-align: left;
-    }
-
-    .leaderboard-wrapper{
-        margin: 18px 0;
     }
 </style>

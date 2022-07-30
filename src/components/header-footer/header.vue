@@ -2,17 +2,24 @@
     <header class="header-wrapper">
         <div class="container">
             <div class="header">
-                <h1>NU SHAKERS</h1>
-                <nav v-if="showNav"  class="nav-links">
+                <div class="logo">
+                    <a href="#">
+                        <img src="../../assets/NU-logo.jpg" alt="NU-SHAKERS"><p>SHAKERS</p> 
+                    </a>
+                </div>
+                <nav class="nav-links" id="nav-links">
                     <ul>
-                        <li><router-link class="nav-links-router"  to="/home">HOME</router-link></li>
-                        <li><router-link class="nav-links-router"  to="/leaderboard">LEADERBOARDS</router-link></li>
-                        <li v-if="isAuth"><button class="nav-links-router" @click="signOut">LOG OUT</button></li>
-                        <li  v-else><router-link class="nav-links-router" to="/login">LOG IN</router-link></li>
+                        <li><router-link class="nav-links-router"  to="/home">Home</router-link></li>
+                        <li><router-link class="nav-links-router"  to="/message-boards">Message Boards</router-link></li>
+                        <li><router-link class="nav-links-router"  to="/leaderboard">Leaderboards</router-link></li>
+                        <li><router-link class="nav-links-router"  to="/manage-games">Game Master</router-link></li>
+                        <li><router-link class="nav-links-router"  to="/profile">Profile</router-link></li>
+                        <li v-if="isAuth"><button class="nav-links-router" @click="signOut">Log Out</button></li>
+                        <li  v-else><router-link class="nav-links-router" to="/login">Log In</router-link></li>
                     </ul>
                 </nav>
 
-                <div @click="showNav=!showNav; alert(something + showNav)" class="toggle-btn">
+                <div @click="showNav" class="toggle-btn">
                     <span class="bar"></span>
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -20,25 +27,32 @@
             </div>
         </div>
     </header>
-    <div style="height:85px; width: 100%;"></div>
+    <div style="height:80px; width: 100%; margin: 0 0 10px 0;"></div>
 </template>
 
 <script>
     export default{
-        data(){
-            return{
-                showNav:false
-            }
-        },  
         computed:{
             isAuth(){
                 return this.$store.getters['users/isAuth'];
             }
         },
+
         methods:{
             signOut(){
                 this.$store.dispatch('users/signOut');
             },
+
+            showNav(){
+                let elem = document.getElementById('nav-links');
+
+                // alert(elem.classList.contains('nav-links-active'))
+                if(elem.classList.contains('nav-links-active')){
+                    elem.className = 'nav-links'
+                }else{
+                    elem.className = 'nav-links nav-links-active'
+                }
+            }
         }
     }
 </script>
@@ -51,90 +65,131 @@
         height: 100%;
         width: 100%;
     }
-    
+
+    .header button{
+        border:none;
+        background-color: transparent;
+    }
+
+    .header .logo{
+        height: 50%;
+        aspect-ratio: 1.7;
+    }
+
+    .header .logo a{
+        display: flex;
+        align-items: center;
+    }
+
+    .header .logo p{
+        display: none;
+    }
+
+    .header .logo img{
+        height: 100%;
+        width: 100%;
+        opacity: 70%;
+    }
+
+    .header-nav-links-active{
+        display: flex;
+    }
+
+    .header .nav-links{
+        position: fixed;
+        top: 80px;
+        left: 0;
+        display: none;
+        flex-direction: column;
+        align-content: center;
+        width: 100%;
+        padding:var(--mp-400) 0;
+        background-color: var(--accents);
+        box-shadow: 0 6px 6px #11111160;
+    }
+
+    .header .nav-links-active{
+        display: flex;
+    }
+
+    .header .nav-links li{
+        height: 40px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .header .nav-links-router{
+        font-size: var(--fs-400);
+        font-weight: 600;
+        color: var(--secondary-clr);
+    }
+
+    .header .nav-links-router:hover{
+        color: var(--tertiary1-clr);
+    }
+
+    .header .toggle-btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 40%;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    .header .toggle-btn .bar{
+        height: 3px;
+        width: 100%;
+        background-color: var(--secondary-clr);
+    }
+
     .header-wrapper{
         position: fixed;
         height: 80px;
         width: 100%;
-        background-color: #fafafa;
-        color: #8d191c;
+        background-color: var(--accents);
     }
 
-    .nav-links ul{
-        display: flex;
+    @media (min-width: 568px){
+        .header .logo p{
+            display: contents;
+            font-size: 44px;
+            font-weight: 600;
+            color: var(--tertiary1-clr);
+        }
     }
 
-    .nav-links-buttons{
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0 0 0 18px;
-        color: #8d191c;
-    }
+    @media (min-width: 960px){
+        .header .toggle-btn{
+            display: none;
+        }
 
-    .nav-links-router{
-        font-size: 18px;
-        font-weight: 600;
-        margin: 0 0 0 18px;
-        border: none;
-        background-color: #fafafa;
-        color: #8d191c;
-    }
+        .header .nav-links{
+            position: static;
+            display:flex;
+            height: 99%;
+            width: fit-content;
+            padding: 0;
+            background-color: transparent;
+            box-shadow: none;
+        }
 
-    .nav-links-router:hover{
-        color: #eb4349;
-    }
-</style>
-
-<!-- PHONE -->
-<style scoped>
-    @media only screen and (max-width:480px){
-        .nav-links{
-            position: absolute;
-            top: 80px;
-            left: 0;
+        .header .nav-links ul{
             display: flex;
+            flex-direction: row;
             align-items: center;
-            flex-direction: column;
-            height: fit-content;
-            width: 100%;
-            background-color: #fafafa;
-            box-shadow: 0 6px 6px 0px #11111120;
-            z-index: 10;
+            height: 100%;
+            width: fit-content;
         }
 
-        .nav-links ul{
+        .header .nav-links ul li{
             display: flex;
-            flex-direction: column;
+            height: 100%;
+            width: fit-content;
+            margin: 0 0 0 var(--mp-400);
             align-items: center;
-            width: 100%;
         }
-
-        .nav-links ul li{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 50px;
-            width: 100%;
-        }
-
-        .nav-links-router{
-            margin: 0;
-        }
-
-        .toggle-btn{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            align-items: center;
-            height: 50%;
-            width: 30px;
-        }
-
-        .bar{
-            height: 3px;
-            width: 100%;
-            border-radius: 10px;
-            background-color: brown;
-        }
+    
     }
 </style>

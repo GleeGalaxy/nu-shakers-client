@@ -1,63 +1,56 @@
 <template>
-    <div class="home">
-        <div class="introduction"> 
-            <h1> <span style="color:#8d191c">Dormitory</span> Playground.</h1>
-            <p>
-                Play games, Find Friends, Make Memories. <br> Join the fun today.
-            </p>
-            <div class="center-btn">
-                <router-link class="signup-link"  to="/leaderboard">SIGN UP</router-link>
+    <div class="home-wrapper wrapper">
+        <div class="container">
+            <div class="home">
+                <h1> <span class="fc-secondary">Dormitory</span> <span class="fc-tertiary1">Playground.</span></h1>
+                <p>
+                    Play games, Find Friends, Make Memories. <br> Join the fun today.
+                </p>
+                <div class="center-btn">
+                    <router-link class="signup-link"  to="/leaderboard">SIGN UP</router-link>
+                </div>
+                <div class="background-div"></div>
             </div>
         </div>
     </div>
-    <div class="background-div"></div>
 </template>
 
-<style scoped>
-    h1{
-        font-size: 63px;
-        color:#71ce7e
-    }
-
-    p{
-        text-align: center;
-        font-size: 27px;
-        margin: 0 0 36px;
-    }
-
-    .background-div{
-        position: fixed;
-        right: -300px;
-        bottom: -250px;
-        transform: rotate(45deg);
-        z-index: -1;
-        height: 600px;
-        width: 600px;
-        background-color: #e98724;
-    }
-
-    .center-btn{
-        width:fit-content;
-        margin:0 auto;
-    }
-    
+<style scoped>    
     .home{
         display: flex;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
-        height: calc(100vh - 189px);
-    }
-    .introduction{
-        width: fit-content;
-        margin: 0 auto;
+        height: 100%;
     }
 
-    .signup-link{
-        font-size: 18px;
-        font-weight: 600;
-        margin: 18px;
-        padding: 18px;
-        border-radius: 27px;
-        background-color: #8d191c;
-        color: #fff;
+    .home p{
+        text-align: center;
+        font-size: var(--fs-400);
+        margin: 0 0 var(--mp-500) 0;
     }
+
+    .home .signup-link{
+        font-size: var(--fs-400);
+        font-weight: 600;
+        padding: var(--mp-400);
+        border-radius: 27px;
+        background-color: var(--secondary-clr);
+        color: var(--primary-clr);
+    }
+
+@media(min-width: 960px){
+    .home h1{
+        font-size: var(--fs-700);
+    }
+
+    .home p{
+        font-size: var(--fs-450);
+    }
+
+    
+    .home .signup-link{
+        font-size: var(--fs-420);
+    }
+}
 </style>

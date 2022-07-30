@@ -8,3 +8,5 @@ const app = createApp(App);
 app.use(routes);
 app.use(store);
 app.mount('#app');
+
+// Check how players are modified to make sure the points are numbers
