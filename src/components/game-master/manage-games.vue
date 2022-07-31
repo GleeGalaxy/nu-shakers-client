@@ -70,9 +70,9 @@
                     console.log('Success:', data);
                     alert("Game Cancelled...")
 
-                    //-------------------------- Post Message Abount Game Cancellation ----------------------------------\\
-
-                    store.dispatch('messages/postMessage', {author:"Game Master", message:
+                    //-------------------------- Post Message Abount Game Cancellation ----------------------------------\\ 
+                    let name = store.getters['users/getAccount'].firstName +' '+ store.getters['users/getAccount'].lastName;
+                    store.dispatch('messages/postMessage', {author:name, message:
                         `A game has been cancelled Between Challenger: ${game.challenger.name} and Player: ${game.player.name}`+
                         `For the wagered amount of: ${game.points}.` +
                         `The Challenge was:${game.details}` +
@@ -189,8 +189,8 @@
                     alert("Game Status Successfully Changed...")
                     
                     //-------------------------- Post Message About Game Completion----------------------------------\\
-
-                    store.dispatch('messages/postMessage', {author:"Game Master", message:
+                    let name = store.getters['users/getAccount'].firstName +' '+ store.getters['users/getAccount'].lastName;
+                    store.dispatch('messages/postMessage', {author:name, message:
                         `A game has been completed Player: ${game.challenger.name} Challenged Player: ${game.player.name}`+
                         `For the wagered amount of: ${game.points}.` +
                         `The Challenge was:${game.details}` +

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import store from './store/store.js'
 
 import Home from '../components/home.vue';
 import Messages from '../components/message-boards.vue';
@@ -29,12 +30,15 @@ const routes = createRouter({
 });
 
 routes.beforeEach((to)=>{
-
-    let elem = document.getElementById('nav-links');
-    elem.className = 'nav-links'
+    
 
     if(to.path === '/') return '/home';
-    if(to.path === '/game-master') return '/manage-games';
+    store.dispatch('users/autoLogin').then(()=>{
+        let elem = document.getElementById('nav-links');
+        elem.className = 'nav-links'
+
+        if(to.path === '/game-master') return '/manage-games';
+    });
 })
 
 export default routes;

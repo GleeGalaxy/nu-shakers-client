@@ -41,8 +41,9 @@
         },
 
         methods:{
-            postMessage(auth, msg){
-                this.$store.dispatch('messages/postMessage', {author:auth, message:msg});
+            postMessage(auth, msg){ 
+                let name = this.$store.getters['users/getAccount'].firstName +' '+ this.$store.getters['users/getAccount'].lastName;
+                this.$store.dispatch('messages/postMessage', {author:name, message:msg});
             }
         },
         mounted(){

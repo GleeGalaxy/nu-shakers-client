@@ -42,7 +42,7 @@ const gamesModule = {
     },
 
     actions:{
-        createGame({dispatch}, payload){
+        createGame({dispatch, rootGetters}, payload){
             alert("Creating game.")            
 
             if(payload.challenger.name === undefined){
@@ -137,8 +137,9 @@ const gamesModule = {
                     console.error('Error:', error);
                 });
 
-                //Post Message to Message Boards about new game.
-                dispatch('messages/postMessage', {author:"Game Master", message:
+                //Post Message to Message Boards about new game. 
+                let name = rootGetters['users/getAccount'].firstName +' '+ rootGetters['users/getAccount'].lastName;
+                dispatch('messages/postMessage', {author:name, message:
                     `
                         A new game has been started by Challenger: ${payload.challenger.name} and Player: ${payload.player.name}<br>
                         For the wagered amount of: ${payload.points}.\n

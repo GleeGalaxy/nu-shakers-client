@@ -23,8 +23,6 @@ h1, h2{
     }
 
     .footer-wrapper{
-        position: fixed;
-        bottom: 0;
         height: 100px;
         width: 100%;
         padding: 0 10px;
