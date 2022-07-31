@@ -31,11 +31,12 @@ const users = {
 
         resetUser(state){
             state.email = null;
+            state.account={};
         },
 
         setAccountDetails(state, payload){
             state.account = payload;
-            alert(state.account.accountType);
+            // alert(state.account.accountType);
         },
     },
     actions:{
@@ -154,7 +155,7 @@ const users = {
                         
                     // alert(players[key].email +' || ' + payload.username+'@northrise.net')
                     if(players[key].email === payload.username+'@northrise.net'){
-                        alert("Found " +  players[key].accountType );
+                        // alert("Found " +  players[key].accountType );
                         context.commit('setAccountDetails', players[key]);
                     }
 
