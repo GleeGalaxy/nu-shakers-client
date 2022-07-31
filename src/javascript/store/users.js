@@ -10,9 +10,15 @@ const users = {
     namespaced:true,
     state:{
         email:null,
-        isAuth:false
+        isAuth:false,
+        account:{}
     },
     getters:{
+        getAccountType(state){
+            if(state.account.accountType === 'Game Master') return true;
+            return false
+        },
+
         isAuth(state){
             if(state.email) return true;
             return false;
@@ -25,7 +31,12 @@ const users = {
 
         resetUser(state){
             state.email = null;
-        }
+        },
+
+        setAccountDetails(state, payload){
+            state.account = payload;
+            alert(state.account.accountType);
+        },
     },
     actions:{
         removeToken(){
@@ -38,9 +49,12 @@ const users = {
             localStorage.setItem("refresh", payload.refreshToken);
         },
 
+        
         async autoLogin(context){
             try{
-                //Getting refresh token from localstorage.
+
+                //-------------------- Getting refresh token from localstorage. -------------------- \\
+
                 const refreshToken = localStorage.getItem('refresh');
                 console.log(refreshToken);
 
@@ -80,9 +94,27 @@ const users = {
                         refreshToken:token.refresh_token
                     }
                     console.log(newTokens);
+
+                    //-------------------- Waiting for response from fetch request. --------------------\\ 
+
+                    //Get user.
+                    let accountType = '';
+                    const players = await fetch("https://inferno-3faf9-default-rtdb.firebaseio.com/players.json")
+                    .then(response => response.json());
+
+                    var keys = Object.keys(players)
+                    keys.forEach(function(key){
+                            
+                        if(players[key].email === user.users[0].email){
+                            accountType = players[key].acountType;
+                        }
+
+                    })
+
     
                     //Setting the new details.
                     context.commit('authUser', newTokens);
+                    context.commit('setAccountType', accountType);
                     context.dispatch('setToken', newTokens);
     
                 }
@@ -107,8 +139,28 @@ const users = {
                 })
                 .then(response => response.json())
 
-                //Waiting for response from fetch request.
+                //-------------------- Waiting for response from fetch request. --------------------\\
+
                 let data = await response;
+
+                //-------------------- Check Which User Matches the Email --------------------\\
+                
+                //Get user.
+                const players = await fetch("https://inferno-3faf9-default-rtdb.firebaseio.com/players.json")
+                .then(response => response.json());
+
+                var keys = Object.keys(players)
+                keys.forEach(function(key){
+                        
+                    // alert(players[key].email +' || ' + payload.username+'@northrise.net')
+                    if(players[key].email === payload.username+'@northrise.net'){
+                        alert("Found " +  players[key].accountType );
+                        context.commit('setAccountDetails', players[key]);
+                    }
+
+                })
+                
+                //-------------------- Waiting for response from fetch request. --------------------\\
 
                 context.commit('authUser', data);
                 context.dispatch('setToken', data);

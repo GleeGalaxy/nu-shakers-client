@@ -29,17 +29,8 @@ const playersModule = {
 
                     var keys = Object.keys(data)
                     keys.forEach(function(key){
-                        var playerObj = {
-                            playerKey:key,
-                            position:data[key].position, 
-                            firstName:data[key].firstName, 
-                            lastName:data[key].lastName, 
-                            nickname:data[key].nickname, 
-                            gamesPlayed:data[key].gamesPlayed, 
-                            points:data[key].points
-                        }
-                        
-                        state.players.push(playerObj);
+                        //Push each object to access its data later.                        
+                        state.players.push(data[key]);
                     })
                 }
             );

@@ -12,7 +12,7 @@
                         <li><router-link class="nav-links-router"  to="/home">Home</router-link></li>
                         <li><router-link class="nav-links-router"  to="/message-boards">Message Boards</router-link></li>
                         <li><router-link class="nav-links-router"  to="/leaderboard">Leaderboards</router-link></li>
-                        <li><router-link class="nav-links-router"  to="/manage-games">Game Master</router-link></li>
+                        <li v-if="accountType"><router-link class="nav-links-router"  to="/manage-games">Game Master</router-link></li>
                         <li><router-link class="nav-links-router"  to="/profile">Profile</router-link></li>
                         <li v-if="isAuth"><button class="nav-links-router" @click="signOut">Log Out</button></li>
                         <li  v-else><router-link class="nav-links-router" to="/login">Log In</router-link></li>
@@ -33,6 +33,10 @@
 <script>
     export default{
         computed:{
+            accountType(){
+                return this.$store.getters['users/getAccountType'];
+            },
+
             isAuth(){
                 return this.$store.getters['users/isAuth'];
             }

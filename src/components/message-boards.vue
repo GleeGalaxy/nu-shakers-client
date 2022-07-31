@@ -1,13 +1,15 @@
 <template>
     <div class="message-wrapper wrapper">
         <div class="container">
+            <h1>POSTS</h1>
             <div class="message">
                 <!-- POSTING ELEMENT -->
-                <div class="posting-section">
+                <div  v-if="accountType" class="posting-section">
                     <textarea placeholder="post..." v-model="message"></textarea>
                     <button @click="postMessage('TestAuthor', message)">POST</button>
                 </div>  
-
+                
+                <div class="line"></div>
 
                 <!-- MESSAGE ELEMENT -->
                 <ul class='msg-list'>
@@ -31,6 +33,13 @@
                 message:''
             }
         },  
+
+        computed:{
+            accountType(){
+                return this.$store.getters['users/getAccountType'];
+            }
+        },
+
         methods:{
             postMessage(auth, msg){
                 this.$store.dispatch('messages/postMessage', {author:auth, message:msg});
@@ -47,6 +56,13 @@
         height: 100%;
         width: 100%;
         padding: var(--mp-200) auto;
+    }
+
+    .message .line{
+        height: 2px;
+        width:100%;
+        margin: 0 0 18px;
+        background-color:var(--tertiary2-clr);
     }
 
     .message .msg-list{
@@ -69,7 +85,6 @@
         width: 100%;
         margin: 0 auto var(--mp-400) auto;
         padding: var(--mp-200) 0;
-        border-bottom: 2px solid var(--tertiary2-clr);
     }
 
     .message .posting-section button{
@@ -81,7 +96,7 @@
         color: var(--primary-clr);
     }
 
-    .message .posting-section textarea{
+    .message textarea{
         font-size: var(--fs-400);
         width: 100%;
         height: 100px;

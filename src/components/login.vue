@@ -25,8 +25,8 @@
         data(){
             return{
                 loginFormData:{
-                    username:'1905173',
-                    passcode:'LutakaT16'
+                    username:'',
+                    passcode:''
                 }
             }
         },
