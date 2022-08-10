@@ -89,7 +89,6 @@
                     timestamp:time
                 }
 
-                // alert(this.$data.challenger + ' || ' + this.$data.challenger.name + ' ' + gameObj);
                 this.$store.dispatch('games/createGame', gameObj);   
             }
         },

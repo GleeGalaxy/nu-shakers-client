@@ -29,7 +29,8 @@ const playersModule = {
 
                     var keys = Object.keys(data)
                     keys.forEach(function(key){
-                        //Push each object to access its data later.                        
+                        //Push each object to access its data later.    
+                        data[key].playerKey = key;                    
                         state.players.push(data[key]);
                     })
                 }
